@@ -6,21 +6,21 @@ A micro-demo showcasing secure secrets management in GitHub Actions using Azure 
 
 ```plaintext
 ┌─────────────────────────────────────────────────────────────┐
-│  GitHub Actions Workflow                                     │
+│  GitHub Actions Workflow                                    │
 │                                                             │
-│  1. Trigger on push/workflow_dispatch                        │
+│  1. Trigger on push/workflow_dispatch                       │
 │  2. azure/login@v2 (OIDC federated credential)              │
 │  3. azure/get-keyvault-secrets@v1 OR az CLI                 │
-│  4. Use secrets in subsequent steps (masked in logs)         │
+│  4. Use secrets in subsequent steps (masked in logs)        │
 └──────────────────────────┬──────────────────────────────────┘
                            │ OIDC token exchange
                            ▼
 ┌─────────────────────────────────────────────────────────────┐
 │  Microsoft Entra ID                                         │
 │                                                             │
-│  - App Registration / Managed Identity                      │
+│  - User-Assigned Managed Identity                           │
 │  - Federated Credential (trust GitHub OIDC issuer)          │
-│  - Scoped to repo + branch/environment                      │
+│  - Scoped to repo + environment                             │
 └──────────────────────────┬──────────────────────────────────┘
                            │ Access token (OAuth 2.0)
                            ▼
@@ -28,7 +28,7 @@ A micro-demo showcasing secure secrets management in GitHub Actions using Azure 
 │  Azure Key Vault                                            │
 │                                                             │
 │  - RBAC: "Key Vault Secrets User" role on identity          │
-│  - Secrets: demo-api-key, demo-connection-string            │
+│  - Secrets: demo-secret-1, demo-secret-2                    │
 │  - Audit logging enabled (Diagnostic Settings)              │
 └─────────────────────────────────────────────────────────────┘
 ```
